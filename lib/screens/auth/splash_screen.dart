@@ -9,7 +9,7 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: ,
+      body: Center(child: Text('Testing it out!')),
     );
   }
 }
