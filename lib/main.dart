@@ -11,7 +11,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'PakChat App',
-      // theme: lightTheme,
+      theme: ThemeData(
+        fontFamily: 'Nunito'
+      ),
       initialRoute: '/',
       routes: routes,
     );

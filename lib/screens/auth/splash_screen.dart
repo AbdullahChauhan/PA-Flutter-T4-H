@@ -9,7 +9,24 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Testing it out!')),
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Spacer(),
+              Image.asset('assets/images/pakchat_logo1.png'),
+              Spacer(),
+              Text(
+                'Designed by PakStudent'.toUpperCase(),
+                style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: .5),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
