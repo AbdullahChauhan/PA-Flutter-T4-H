@@ -12,6 +12,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'PakChat App',
       theme: ThemeData(
+        primaryColor: Color(0xFF28BB4E),
+        accentColor: Color(0xFF3E3E3E),
         fontFamily: 'Nunito'
       ),
       initialRoute: '/',
