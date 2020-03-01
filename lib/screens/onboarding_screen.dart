@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pa_flutter_t4H/screens/auth/phone_auth.dart';
 
 class OnBoarding extends StatefulWidget {
   @override
@@ -139,7 +140,12 @@ class _OnBoardingState extends State<OnBoarding> {
               width: double.infinity,
               color: Theme.of(context).primaryColor,
               child: GestureDetector(
-                onTap: () => print('Get started'),
+                onTap: () => {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return AuthGetPhone();
+                  }))
+                },
                 child: Center(
                   child: Text(
                     'Get started',
