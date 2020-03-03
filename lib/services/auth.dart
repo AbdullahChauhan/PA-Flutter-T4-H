@@ -1,6 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pa_flutter_t4H/screens/home.dart';
+
+@immutable
+class User {
+  const User({@required this.uid});
+  final String uid;
+}
 
 class AuthService {
   String countryCode;
@@ -8,6 +13,14 @@ class AuthService {
   String smsCode;
   static String verificationID;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  User _userFromFirebase(FirebaseUser user) {
+    return user == null ? null : User(uid: user.uid);
+  }
+
+  Stream<User> get onAuthStateChanged {
+    return _auth.onAuthStateChanged.map(_userFromFirebase);
+  }
 
   // register user using phone no
   Future<void> verifyPhone() async {
@@ -36,15 +49,15 @@ class AuthService {
         verificationFailed: failed);
   }
 
-  signIn(BuildContext context) async {
+  Future<User> signIn(BuildContext context) async {
     final AuthCredential credential = PhoneAuthProvider.getCredential(
         verificationId: verificationID, smsCode: smsCode);
 
-    await _auth.signInWithCredential(credential).then((user) {
-      print(user.user.uid);
-      Navigator.of(context).pushReplacementNamed(Home.routeName);
-    }).catchError((e) {
-      print('Auth Credential Error : $e');
-    });
+    final authResult = await _auth.signInWithCredential(credential);
+    return _userFromFirebase(authResult.user);
+  }
+
+  Future<void> signOut() async {
+    return await _auth.signOut();
   }
 }
