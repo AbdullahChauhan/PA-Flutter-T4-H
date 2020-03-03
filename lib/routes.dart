@@ -6,7 +6,7 @@ import 'package:pa_flutter_t4H/screens/splash_screen.dart';
 
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/": (BuildContext context) => Splash(),
-  "/signin": (BuildContext context) => AuthGetPhone(),
-  "/otp": (BuildContext context) => AuthOTPPhone(),
-  "/home": (BuildContext context) => Home(),
+  AuthGetPhone.routeName: (BuildContext context) => AuthGetPhone(),
+  AuthOTPPhone.routeName: (BuildContext context) => AuthOTPPhone(),
+  Home.routeName: (BuildContext context) => Home(),
 };

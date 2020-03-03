@@ -1,5 +1,4 @@
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,6 +6,7 @@ import 'package:pa_flutter_t4H/screens/auth/phone_otp.dart';
 import 'package:pa_flutter_t4H/services/auth.dart';
 
 class AuthGetPhone extends StatefulWidget {
+  static const routeName = '/signin';
   @override
   _AuthGetPhoneState createState() => _AuthGetPhoneState();
 }
@@ -26,6 +26,9 @@ class _AuthGetPhoneState extends State<AuthGetPhone> {
 
   @override
   Widget build(BuildContext context) {
+    // Extract the arguments from the current ModalRoute settings and cast
+    // them as ScreenArguments.
+    final AuthOTPPhone args = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark.copyWith(
@@ -173,11 +176,10 @@ class _AuthGetPhoneState extends State<AuthGetPhone> {
                         onPressed: () {
                           _authService.countryCode = countryCode;
                           _authService.phoneNo = phoneCtrl.text;
+                          String phoneNoWithCode = countryCode + phoneCtrl.text;
                           _authService.verifyPhone().then((value) {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return AuthOTPPhone();
-                            }));
+                            Navigator.of(context).pushNamed(AuthOTPPhone.routeName,
+                                arguments: {'phoneNo': phoneNoWithCode});
                           }).catchError((e) {
                             print(e.toString());
                           });

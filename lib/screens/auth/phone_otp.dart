@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pa_flutter_t4H/services/auth.dart';
 
 class AuthOTPPhone extends StatefulWidget {
+  static const routeName = '/otp';
   @override
   _AuthOTPPhoneState createState() => _AuthOTPPhoneState();
 }
@@ -14,6 +15,11 @@ class _AuthOTPPhoneState extends State<AuthOTPPhone> {
 
   @override
   Widget build(BuildContext context) {
+    // Extract the arguments from the current ModalRoute settings and cast
+    // them as ScreenArguments.
+    final args =
+        ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final phoneNoWithCode = args['phoneNo'];
     return Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle.dark.copyWith(
@@ -40,8 +46,22 @@ class _AuthOTPPhoneState extends State<AuthOTPPhone> {
                 SizedBox(
                   height: 16,
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                  "Enter code sent to ",
+                  textAlign: TextAlign.center,
+                ),
+                Text(phoneNoWithCode, style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.0,
+                  fontSize: 16.0
+                ),),
+                  ],
+                ),
                 Text(
-                  "Lorem ipsum, or lipsum as it is sometimes known, is dummy. Lorem ipsum, or lipsum as it is sometimes known, is dummy.",
+                  "Lorem ipsum, or lipsum as it is sometimes known, is dummy.",
                   textAlign: TextAlign.center,
                 ),
                 Padding(
@@ -71,7 +91,7 @@ class _AuthOTPPhoneState extends State<AuthOTPPhone> {
                         ),
                         RaisedButton(
                           padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 24.0),
+                              vertical: 8.0, horizontal: 32.0),
                           child: Text(
                             'Verify',
                             style:

@@ -140,12 +140,7 @@ class _OnBoardingState extends State<OnBoarding> {
               width: double.infinity,
               color: Theme.of(context).primaryColor,
               child: GestureDetector(
-                onTap: () => {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                    return AuthGetPhone();
-                  }))
-                },
+                onTap: () => Navigator.of(context).pushReplacementNamed(AuthGetPhone.routeName),
                 child: Center(
                   child: Text(
                     'Get started',

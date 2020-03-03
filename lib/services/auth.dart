@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pa_flutter_t4H/screens/home.dart';
 
 class AuthService {
   String countryCode;
@@ -27,8 +28,8 @@ class AuthService {
     };
 
     await _auth.verifyPhoneNumber(
-        phoneNumber: this.countryCode+this.phoneNo,
-        timeout: const Duration(seconds: 30),
+        phoneNumber: this.countryCode + this.phoneNo,
+        timeout: const Duration(seconds: 60),
         codeAutoRetrievalTimeout: autoRetreive,
         codeSent: smsCodeSent,
         verificationCompleted: success,
@@ -41,7 +42,7 @@ class AuthService {
 
     await _auth.signInWithCredential(credential).then((user) {
       print(user.user.uid);
-      Navigator.of(context).pushReplacementNamed('/home');
+      Navigator.of(context).pushReplacementNamed(Home.routeName);
     }).catchError((e) {
       print('Auth Credential Error : $e');
     });
