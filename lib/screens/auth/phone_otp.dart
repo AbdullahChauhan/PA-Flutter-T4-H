@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pa_flutter_t4H/screens/home.dart';
 import 'package:pa_flutter_t4H/services/auth.dart';
+import 'package:provider/provider.dart';
 
 class AuthOTPPhone extends StatefulWidget {
   static const routeName = '/otp';
@@ -11,7 +13,18 @@ class AuthOTPPhone extends StatefulWidget {
 
 class _AuthOTPPhoneState extends State<AuthOTPPhone> {
   TextEditingController smsCodeCtrl = TextEditingController();
-  AuthService _authService = AuthService();
+
+  Future<void> _signIn(BuildContext context) async {
+    try {
+      final auth = Provider.of<AuthService>(context, listen: false);
+      auth.smsCode = smsCodeCtrl.text;
+      await auth.signIn().then((value) {
+        Navigator.of(context).pop();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +63,16 @@ class _AuthOTPPhoneState extends State<AuthOTPPhone> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                  "Enter code sent to ",
-                  textAlign: TextAlign.center,
-                ),
-                Text(phoneNoWithCode, style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.0,
-                  fontSize: 16.0
-                ),),
+                      "Enter code sent to ",
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      phoneNoWithCode,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.0,
+                          fontSize: 16.0),
+                    ),
                   ],
                 ),
                 Text(
@@ -101,10 +116,7 @@ class _AuthOTPPhoneState extends State<AuthOTPPhone> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100),
                           ),
-                          onPressed: () {
-                            _authService.smsCode = smsCodeCtrl.text;
-                            _authService.signIn(context);
-                          },
+                          onPressed: () => _signIn(context),
                         )
                       ],
                     ),

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pa_flutter_t4H/screens/auth/phone_otp.dart';
 import 'package:pa_flutter_t4H/services/auth.dart';
+import 'package:provider/provider.dart';
 
 class AuthGetPhone extends StatefulWidget {
   static const routeName = '/signin';
@@ -16,7 +17,20 @@ class _AuthGetPhoneState extends State<AuthGetPhone> {
   var formKey = GlobalKey<FormState>();
   String countryCode;
 
-  AuthService _authService = AuthService();
+  Future<void> _verifyPhone(BuildContext context) async {
+    try {
+      final auth = Provider.of<AuthService>(context, listen: false);
+      auth.countryCode = countryCode;
+      auth.phoneNo = phoneCtrl.text;
+      String phoneNoWithCode = countryCode + phoneCtrl.text;
+      auth.verifyPhone().then((value) {
+        Navigator.of(context).pushNamed(AuthOTPPhone.routeName,
+            arguments: {'phoneNo': phoneNoWithCode});
+      }).catchError((e) => print(e));
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   void initState() {
@@ -26,9 +40,6 @@ class _AuthGetPhoneState extends State<AuthGetPhone> {
 
   @override
   Widget build(BuildContext context) {
-    // Extract the arguments from the current ModalRoute settings and cast
-    // them as ScreenArguments.
-    final AuthOTPPhone args = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark.copyWith(
@@ -173,17 +184,7 @@ class _AuthGetPhoneState extends State<AuthGetPhone> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100),
                         ),
-                        onPressed: () {
-                          _authService.countryCode = countryCode;
-                          _authService.phoneNo = phoneCtrl.text;
-                          String phoneNoWithCode = countryCode + phoneCtrl.text;
-                          _authService.verifyPhone().then((value) {
-                            Navigator.of(context).pushNamed(AuthOTPPhone.routeName,
-                                arguments: {'phoneNo': phoneNoWithCode});
-                          }).catchError((e) {
-                            print(e.toString());
-                          });
-                        },
+                        onPressed: () => _verifyPhone(context),
                       )
                     ],
                   ),

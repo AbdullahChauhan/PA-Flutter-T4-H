@@ -49,7 +49,7 @@ class AuthService {
         verificationFailed: failed);
   }
 
-  Future<User> signIn(BuildContext context) async {
+  Future<User> signIn() async {
     final AuthCredential credential = PhoneAuthProvider.getCredential(
         verificationId: verificationID, smsCode: smsCode);
 
