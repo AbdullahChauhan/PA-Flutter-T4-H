@@ -20,8 +20,10 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark
-            .copyWith(systemNavigationBarColor: Colors.white),
+        value: SystemUiOverlayStyle.light
+            .copyWith(
+              statusBarColor: Theme.of(context).accentColor,
+              systemNavigationBarColor: Colors.white),
         child: SafeArea(
           child: Column(
             children: <Widget>[
