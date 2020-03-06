@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: <Widget>[
-              WavyAppHeader()
+              WavyAppHeader(backButton: false, userAvatar: true, title: 'Chats', isSubTitle: false,  addUserBtn: false, searchBtn: false, logoutBtn: true,),
               // RaisedButton(
               //   padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
               //   child: Text(
