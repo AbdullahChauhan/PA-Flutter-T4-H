@@ -34,7 +34,7 @@ class WavyAppHeader extends StatelessWidget {
             children: <Widget>[
               backButton ? GestureDetector(
                 child: Icon(Icons.arrow_back, size: 32.0, color: Colors.white),
-                onTap: () => print('Clicked!'),
+                onTap: () => Navigator.of(context).pop(),
               ) : SizedBox(),
               userAvatar ? GestureDetector(
                               child: CircleAvatar(
