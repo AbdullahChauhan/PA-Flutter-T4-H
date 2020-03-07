@@ -7,15 +7,6 @@ import 'package:provider/provider.dart';
 class Home extends StatelessWidget {
   static const routeName = '/home';
 
-  Future<void> _signOut(BuildContext context) async {
-    try {
-      final auth = Provider.of<AuthService>(context, listen: false);
-      await auth.signOut();
-    } catch (e) {
-      print(e);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,19 +18,7 @@ class Home extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: <Widget>[
-              WavyAppHeader(backButton: false, userAvatar: true, title: 'Chats', isSubTitle: false,  addUserBtn: false, searchBtn: false, logoutBtn: true,),
-              // RaisedButton(
-              //   padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-              //   child: Text(
-              //     'Logout',
-              //     style: TextStyle(color: Colors.white, fontSize: 16.0),
-              //   ),
-              //   color: Theme.of(context).primaryColor,
-              //   shape: RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.circular(100),
-              //   ),
-              //   onPressed: () => _signOut(context)
-              // )
+              WavyAppHeader(backButton: false, userAvatar: true, title: 'Chats', isSubTitle: false,  addUserBtn: false, searchBtn: true,),
             ],
           ),
         ),

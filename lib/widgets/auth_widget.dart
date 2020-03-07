@@ -7,13 +7,20 @@ import 'package:provider/provider.dart';
 class AuthWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context, listen: false);
+    final authService =
+        Provider.of<AuthService>(context, listen: false);
     return StreamBuilder<User>(
       stream: authService.onAuthStateChanged,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final user = snapshot.data;
-          return user != null ? Home() : AuthGetPhone();
+          if (user != null) {
+            return Provider<User>.value(
+              value: user,
+              child: Home(),
+            );
+          }
+          return AuthGetPhone();
         }
         return Scaffold(
           body: Center(

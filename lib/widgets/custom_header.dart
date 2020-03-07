@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pa_flutter_t4H/screens/profile_screen.dart';
+import 'package:pa_flutter_t4H/services/auth.dart';
+import 'package:provider/provider.dart';
 
 class WavyAppHeader extends StatelessWidget {
   final bool userAvatar;
@@ -15,6 +17,15 @@ class WavyAppHeader extends StatelessWidget {
   final bool logoutBtn;
 
   const WavyAppHeader({Key key, this.userAvatar = false, this.backButton = true, this.isTitle = true, this.title, this.isSubTitle = false, this.subTitle, this.searchField = false, this.addUserBtn = false, this.userActiveStatus = false, this.searchBtn = false, this.logoutBtn = false}) : super(key: key);
+
+  Future<void> _signOut(BuildContext context) async {
+    try {
+      final auth = Provider.of<AuthService>(context, listen: false);
+      await auth.signOut();
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +96,7 @@ class WavyAppHeader extends StatelessWidget {
                     color: Theme.of(context).primaryColor),
                 child: GestureDetector(
                   child: Icon(Icons.exit_to_app, size: 28.0, color: Colors.white),
-                  onTap: () => print('Clicked!'),
+                  onTap: () => _signOut(context),
                 ),
               ) : SizedBox(),
             ],

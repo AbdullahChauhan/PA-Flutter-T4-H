@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 class User {
-  const User({@required this.uid});
+  const User({this.uid});
   final String uid;
 }
 
